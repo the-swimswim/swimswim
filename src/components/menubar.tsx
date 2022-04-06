@@ -5,7 +5,9 @@ import { Context } from '../audio_store';
 const Menubar = () => {
   const { isPlay, onClickPlayBtn } = useContext(Context);
   console.log(isPlay);
-
+  const callBackClick = useCallback(() => {
+    onClickPlayBtn();
+  },[isPlay])
   return (
     <div>
       <ul>
@@ -17,16 +19,10 @@ const Menubar = () => {
         </li>
         <div>
           {isPlay && (
-            <img
-              src="imgs/사운드아이콘_brown.gif"
-              onClick={onClickPlayBtn}
-            />
+            <img src="imgs/사운드아이콘_brown.gif" onClick={callBackClick} />
           )}
           {!isPlay && (
-            <img
-              src="imgs/사운드아이콘_brown.png"
-              onClick={onClickPlayBtn}
-            />
+            <img src="imgs/사운드아이콘_brown.png" onClick={callBackClick} />
           )}
         </div>
       </ul>
