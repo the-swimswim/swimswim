@@ -1,8 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import ReactAudioPlayer from 'react-audio-player';
 import AudioPlayer from 'react-h5-audio-player';
+import { Howl, Howler } from 'howler';
+import { link } from 'node:fs/promises';
 function Audio() {
   const player = useRef<any>(null);
+  const linkRef = useRef(null);
+  const btnRef = useRef(null);
   const [pause, setPause] = useState(true);
   const onChangeAudio = () => { //audio handler
     console.log(player);
@@ -11,12 +15,17 @@ function Audio() {
 
     
   };
+  var sound = new Howl({
+    src: ['static/notification-4.wav'],
+    volume: 1.0,
+    autoplay: true,
+    onend: () => {
+      console.log('Finished!');
+    },
+  });
   useEffect(() => {
-    player.current.autoplay = true;
-    // player.current;
-    // asyncFunction();
-    console.log('호출이 되엇나요?');
-    console.log(player);
+    console.log(btnRef);
+    // btnRef.current?
   },[])
   const asyncFunction =() => {
     let playPromise = player.current.play();
@@ -33,9 +42,19 @@ function Audio() {
   //bgm은 껏다 킬 수 있음. onPause, onPlay할때, 각각 전역으로 사진교체
   return (
     <div>
-      {pause && <img src="imgs/사운드아이콘_brown.gif" onClick={onChangeAudio} />}
-      {!pause && <img src="imgs/사운드아이콘_brown.png" onClick={onChangeAudio} />}
-      <audio src="bgm/TOMBOY.mp3" autoPlay loop ref={player}></audio>
+      {pause && (
+        <img src="imgs/사운드아이콘_brown.gif" onClick={onChangeAudio} ref={btnRef} />
+      )}
+      {!pause && (
+        <img src="imgs/사운드아이콘_brown.png" onClick={onChangeAudio} ref={btnRef} />
+      )}
+      <audio  autoPlay loop ref={player}>
+        <source src="bgm/TOMBOY.mp3"></source>
+      </audio>
+      {/* <button ref={btnRef}>hi</button> */}
+      <a href="/" ref={linkRef}>
+        T E S T
+      </a>
     </div>
   );
 }
