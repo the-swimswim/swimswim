@@ -3,8 +3,8 @@ interface btnProps {
   onClick: () => void;
 }
 
-const Button = ({ text, onClick }: btnProps) => (
+const TransparentButton = ({ text, onClick }: btnProps) => (
   <button onClick={onClick}>{text}</button>
 );
 
-export default Button;
+export default TransparentButton;
