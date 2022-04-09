@@ -1,6 +1,11 @@
+import SwapVideo2 from './../component/SwapVideo2';
+
 function HomePage() {
   return (
-    <h1>Home Page</h1>
+    <div>
+      <h1>Home Page</h1>
+      <SwapVideo2 />
+    </div>
   )
 }
 
