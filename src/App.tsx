@@ -3,9 +3,6 @@ import HomePage from "./page/HomePage";
 import TestPage from "./page/TestPage";
 import TestContainerPage from "./page/TestContainerPage";
 
-import "./global.css";
-import Cursor from "./component/Cursor/Cursor";
-
 function App() {
   return (
     <div className="App">
@@ -16,7 +13,6 @@ function App() {
           <Route path=":id" element={<TestContainerPage />} />
         </Route>
       </Routes>
-      <Cursor />
     </div>
   );
 }
