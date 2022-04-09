@@ -1,9 +1,10 @@
-import { Route, Routes } from 'react-router-dom';
-import HomePage from './page/HomePage';
-import TestPage from './page/TestPage';
-import TestContainerPage from './page/TestContainerPage';
+import { Route, Routes } from "react-router-dom";
+import HomePage from "./page/HomePage";
+import TestPage from "./page/TestPage";
+import TestContainerPage from "./page/TestContainerPage";
 
-import './style.css';
+import "./global.css";
+import Cursor from "./component/Cursor/Cursor";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path=":id" element={<TestContainerPage />} />
         </Route>
       </Routes>
+      <Cursor />
     </div>
   );
 }
