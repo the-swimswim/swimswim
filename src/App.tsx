@@ -1,13 +1,17 @@
+import { useState } from 'react'
 import { Route, Routes } from 'react-router-dom';
 import HomePage from './page/HomePage';
 import TestPage from './page/TestPage';
 import TestContainerPage from './page/TestContainerPage';
 
-import './style.css';
+import './App.css'
+import * as styles from "./style.css";
 
 function App() {
+  const [count, setCount] = useState(0)
+
   return (
-    <div className="App">
+    <div className={styles.exampleStyle}>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="test">
@@ -16,7 +20,7 @@ function App() {
         </Route>
       </Routes>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
