@@ -1,15 +1,16 @@
 import { Link, useParams } from "react-router-dom";
-import { Scene1, SceneNotFound } from './../scene';
-import { useEffect } from 'react';
+import { Scene1, Scene2, SceneNotFound } from './../scene';
+import { ReactElement, useEffect } from 'react';
 import useStore from './../hook/useStore';
 
 // index: url이름, value: 컴포넌트
 interface SceneInfo {
-  [index: string]: React.FunctionComponent;
+  [index: string]: React.FC;
 }
 
 const scene:SceneInfo = {
   1: Scene1,
+  2: Scene2,
 };
 
 function getScene(id: string | undefined) {

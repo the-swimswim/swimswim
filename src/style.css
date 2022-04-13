@@ -1,3 +1,19 @@
+/* 화면 고정 */
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  width: 177vh;
+  height: 100vh;
+  background-color: aqua;
+
+  transform: translate(-50%, 0px);
+  left: 50%;
+  position: absolute;
+}
+
 /* CSS를 적용하는 파일 */
 .test-page__grid {
   display: grid;
@@ -33,4 +49,11 @@
 
 .scene1__temp1--after {
   transform: translate(100px, 100px);
+}
+
+.scene2__start-button {
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+  position: absolute;
 }
