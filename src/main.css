@@ -1,0 +1,7 @@
+html {
+  cursor: url('./assets/images/circle.svg'), auto;
+}
+
+.object {
+  cursor: url('./assets/images/circle.hover.svg'), auto;
+}

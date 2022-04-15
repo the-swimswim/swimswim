@@ -15,4 +15,5 @@ export const [themeClass, vars] = createTheme({
 export const appStyle = style({
   background: vars.color.primary,
   color: vars.color.text,
+  height: '10vh',
 });
