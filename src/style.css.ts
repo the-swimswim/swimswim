@@ -12,7 +12,7 @@ export const [themeClass, vars] = createTheme({
 });
 
 // style 생성
-export const exampleStyle = style({
+export const appStyle = style({
   background: vars.color.primary,
   color: vars.color.text,
 });
