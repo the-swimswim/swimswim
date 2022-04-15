@@ -5,13 +5,15 @@ html, body {
 }
 
 #root {
-  width: 177vh;
+  width: 177.7777777777777vh;
   height: 100vh;
   background-color: aqua;
 
   transform: translate(-50%, 0px);
   left: 50%;
   position: absolute;
+
+  overflow: hidden;
 }
 
 /* CSS를 적용하는 파일 */

@@ -1,4 +1,5 @@
-import useStore from "../hook/useStore";import shallow from 'zustand/shallow'
+import useStore from "../hook/useStore";
+import shallow from 'zustand/shallow'
 import { useEffect } from "react";
 
 function Scene1() {

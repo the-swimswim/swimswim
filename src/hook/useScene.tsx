@@ -1,87 +1,71 @@
-import { useEffect, useState } from "react";
-import videojs from "video.js";
-import useDynamicRefs from "./useDynamicRefs";
+import { useEffect, useState, useMemo } from "react";
+import NormalVideo from '../component/block/NormalVideo';
+import LoopVideo from '../component/block/LoopVideo';
+import Selection from '../component/block/Selection';
+import NextScene from "../component/block/NextScene";
 
 interface Block {
   type: string;
+  id: number;
   src?: string;
   autoNext?: string;
+  onNextScene?: () => void;
 }
 
-function useScene(sequence: Block[], onNextScene?: Function) : [JSX.Element[], () => void] {
+interface SceneElement {
+  elements: (JSX.Element | null)[],
+}
+
+function useScene(key: string, sequence: Block[], onNextScene?: Function): SceneElement {
   const [current, setCurrent] = useState<number>(0);
-  const [elements, setElements] = useState<JSX.Element[]>([]);
-  const refs = useDynamicRefs<HTMLVideoElement>(sequence.length);
 
-  function handleEnded() {
+  function handleNext() {
     setCurrent(prev => prev + 1);
   }
 
-  // FIX ME: 상태에 따라 클래스로 가시화 결정
-  function getClass(index: string) {
-    let result = `swap-video `;
-
-    if (index === current.toString()) {
-      result += "swap-video-visible"
-    } else {
-      result += "swap-video-invisible"
-    }
-
-    return result;
-  }
-
-  useEffect(() => {
-    refs.current.forEach(ref => {
-      ref.current?.load();
-    })
-  }, [sequence]);
-
-  useEffect(() => {
-    let result = [];
-
-    for(let i in sequence) {
-      const block = sequence[i];
-      let onEnded: Function | null = null;
-
-      // identify onEnded
-      if (block.autoNext === "yes") {
-        onEnded = handleEnded;
-      } else if (block.autoNext === "end") {
-        onEnded = onNextScene || null;
-      }
-
-      // add component to list
+  const elements = useMemo(() => {
+    return sequence.map((block, i) => {
       if (block.type === "video") {
-        if (block.src === null || block.src === undefined) {
-          continue;
-        }
-
-        result.push(
-          <video className={getClass(i)} key={`normal-video-${i}`} ref={refs.current[i]} autoPlay muted onEnded={() => onEnded && onEnded()}>
-            <source src={block.src} type="video/webm" />
-          </video>
-        )
+        return (
+          <NormalVideo
+            key={`${key}-${i}`}
+            url={[{ src: block.src || "", type: "video/webm" }]}
+            playing={current === block.id}
+            onEnded={handleNext}
+          />
+        );
       } else if (block.type === "loop") {
-        if (block.src === null || block.src === undefined) {
-          continue;
-        }
-
-        result.push(
-          <video className={getClass(i)} key={`normal-video-${i}`} ref={refs.current[i]} autoPlay muted loop>
-            <source src={block.src} type="video/webm" />
-          </video>
+        return (
+          <LoopVideo
+            key={`${key}-${i}`}
+            url={[{ src: block.src || "", type: "video/webm" }]}
+            playing={current === block.id}
+          />
+        );
+      } else if (block.type === "selection") {
+        return (
+          <Selection
+            key={`${key}-${i}`}
+            playing={current === block.id}
+            onEnded={handleNext}
+            onSelect={(v) => { }}
+          />
+        )
+      } else if (block.type === "nextScene") {
+        return (
+          <NextScene
+            key={`${key}-${i}`}
+            playing={current === block.id}
+            onNextScene={onNextScene}
+          />
         )
       }
-    }
 
-    setElements(result);
-  }, [sequence, onNextScene]);
+      return null;
+    });
+  }, [sequence, current]);
 
-  function handleForceNext() {
-    setCurrent(prev => prev + 1);
-  }
-
-  return [elements, handleForceNext];
+  return { elements };
 }
 
 export default useScene;

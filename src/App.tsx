@@ -8,8 +8,6 @@ import './App.css'
 import * as styles from "./style.css";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <div className={styles.exampleStyle}>
       <Routes>
