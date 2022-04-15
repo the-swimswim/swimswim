@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import useScene, { Block } from '../hook/useScene';
-import "../component/SwapVideo.css";
 
 enum BlockId {
     Video1 = 0,

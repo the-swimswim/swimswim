@@ -1,10 +1,10 @@
-import {Scene2} from '../scene';
+import {Scene3} from '../scene';
 
 
 function HomePage() {
   return (
     <div>
-      <Scene2 />
+      <Scene3 />
     </div>
   )
 }
