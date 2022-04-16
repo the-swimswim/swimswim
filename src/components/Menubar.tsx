@@ -4,10 +4,9 @@ import { Context } from './audio/AudioController';
 
 
 const Menubar = () => {
-  const { isPlay, onClickPlayBtn } = useContext(Context);
-  console.log(isPlay);
+  const { isPlay, onClickBgmBtn } = useContext(Context);
   const callBackClick = useCallback(() => {
-    onClickPlayBtn();
+    onClickBgmBtn();
   }, [isPlay]);
   return (
     <div>
