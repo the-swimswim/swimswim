@@ -1,24 +1,20 @@
-import { useState } from 'react'
-import { Route, Routes } from 'react-router-dom';
-import HomePage from './page/HomePage';
-import TestPage from './page/TestPage';
-import TestContainerPage from './page/TestContainerPage';
-
-import './App.css'
-import * as styles from "./style.css";
+import { BrowserRouter,Route, Routes } from 'react-router-dom'; 
+import AudioContainer from './components/audio/AudioController';
+import Home from './page/Home';
+import Next from './page/Next';
 
 function App() {
+
   return (
-    <div className={styles.exampleStyle}>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="test">
-          <Route path="" element={<TestPage />} />
-          <Route path=":id" element={<TestContainerPage />} />
-        </Route>
-      </Routes>
-    </div>
-  )
+    <>
+        <AudioContainer>
+          <Routes>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/next" element={<Next />}></Route>
+          </Routes>
+        </AudioContainer>
+    </>
+  );
 }
 
 export default App
