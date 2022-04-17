@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import useScene, { Block } from '../hook/useScene';
+import useScene, { Block } from '../hooks/useScene';
 
 enum BlockId {
     Start = 0,

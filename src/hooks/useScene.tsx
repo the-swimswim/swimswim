@@ -1,9 +1,9 @@
 import { useEffect, useState, useMemo } from "react";
-import NormalVideo from '../component/block/NormalVideo';
-import LoopVideo from '../component/block/LoopVideo';
-import Selection from '../component/block/Selection';
-import NextScene from "../component/block/NextScene";
-import Image from "../component/block/Image";
+import NormalVideo from '../components/blocks/NormalVideo';
+import LoopVideo from '../components/blocks/LoopVideo';
+import Selection from '../components/blocks/Selection';
+import NextScene from "../components/blocks/NextScene";
+import Image from "../components/blocks/Image";
 
 interface Block {
   type: string;

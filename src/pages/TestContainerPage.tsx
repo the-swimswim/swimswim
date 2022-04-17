@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
-import { Scene1, Scene2, Scene3, SceneNotFound } from './../scene';
+import { Scene1, Scene2, Scene3, SceneNotFound } from '../scenes';
 import { ReactElement, useEffect } from 'react';
-import useStore from './../hook/useStore';
+import useStore from './../hooks/useStore';
 
 // index: url이름, value: 컴포넌트
 interface SceneInfo {
