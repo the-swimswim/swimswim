@@ -3,16 +3,17 @@ import { createTheme, style } from '@vanilla-extract/css';
 // theme 생성
 export const [themeClass, vars] = createTheme({
   color: {
-    brand: 'blue',
+    primary: 'pink',
+    text: 'white',
   },
   font: {
     body: 'arial',
   },
 });
 
-
 // style 생성
-export const exampleStyle = style({
-  background: 'pink',
-  color: 'white'
+export const appStyle = style({
+  background: vars.color.primary,
+  color: vars.color.text,
+  height: '10vh',
 });
