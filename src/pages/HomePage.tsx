@@ -1,4 +1,4 @@
-import {IntroScene} from '../scene';
+import {IntroScene} from '../scenes';
 
 
 function HomePage() {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useContext } from 'react';
-import { Context } from '../components/audio/AudioController';
+import { Context } from '../components/audios/AudioController';
 import AudioLayout from '../components/Layout';
 
 const Home = () => {

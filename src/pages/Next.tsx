@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { Context } from '../components/audio/AudioController';
+import { Context } from '../components/audios/AudioController';
 import AudioLayout from '../components/Layout';
 
 

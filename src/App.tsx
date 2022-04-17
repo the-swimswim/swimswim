@@ -1,9 +1,9 @@
 import { BrowserRouter,Route, Routes } from 'react-router-dom'; 
-import AudioContainer from './components/audio/AudioController';
-import Home from './page/Home';
-import Next from './page/Next';
-import TestPage from './page/TestPage';
-import TestContainerPage from './page/TestContainerPage';
+import AudioContainer from './components/audios/AudioController';
+import Home from './pages/Home';
+import Next from './pages/Next';
+import TestPage from './pages/TestPage';
+import TestContainerPage from './pages/TestContainerPage';
 
 import './App.css'
 import "./style.css";
