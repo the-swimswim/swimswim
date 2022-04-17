@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { Scene1, Scene2, SceneNotFound } from './../scene';
+import { Scene1, Scene2, Scene3, SceneNotFound } from './../scene';
 import { ReactElement, useEffect } from 'react';
 import useStore from './../hook/useStore';
 
@@ -11,6 +11,7 @@ interface SceneInfo {
 const scene:SceneInfo = {
   1: Scene1,
   2: Scene2,
+  3: Scene3,
 };
 
 function getScene(id: string | undefined) {

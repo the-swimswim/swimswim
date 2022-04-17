@@ -2,8 +2,11 @@ import ReactVideo from 'react-player';
 
 interface SelectionProp {
     playing: boolean,
-    onSelect: (value: number) => void,
+    onSelect: () => void,
     onEnded: () => void,
+    left?: string,
+    top?: string,
+    src: string,
 }
 
 /**
@@ -13,20 +16,17 @@ interface SelectionProp {
  * @param onEnded Function ???
  * @returns React.FunctionComponent
  */
-const Selection:React.FunctionComponent<SelectionProp> = ({ playing, onEnded }) => {
+const Selection:React.FunctionComponent<SelectionProp> = ({ playing, onEnded, onSelect, left, top, src }) => {
     return (
-        <>
-            <button 
-                style={{ 
-                    display: playing ? "block" : "none",
-                    position: 'absolute', left: "50%", top: "50%", 
-                    transform: "translate(-50%, -50%)",
-                }} 
-                onClick={onEnded}
-            >
-                next
-            </button>
-        </>
+        <img 
+            src={src}
+            style={{ 
+                display: playing ? "block" : "none",
+                position: 'absolute', left: left || "50%", top: top || "50%", 
+                transform: "translate(-50%, -50%)",
+            }} 
+            onClick={onSelect}
+        />
     )
 }
 
