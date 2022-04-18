@@ -2,12 +2,13 @@
 
 ## 배포 브랜치는 master 
 
+## 테스트(개발용) 배포 브랜치는 main
 
 ## vite Setup! + react ts
 
 ## deploy : CI/CD Netlify
 
-### 도메인 : https://swim-swim.netlify.app/
+### 마스터 배포도메인 : https://swim-swim.netlify.app/
 
 ## URL 구조
 / : 홈페이지. 최종 결과물 페이지.<br/>

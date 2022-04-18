@@ -15,7 +15,10 @@ const Menubar = () => {
           <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="/next">Author</Link>
+          <Link to="/next">next</Link>
+        </li>
+        <li>
+          <Link to="/double">Double</Link>
         </li>
         <div>
           {isPlay && (
