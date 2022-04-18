@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 export const Context = React.createContext<any>({});
 
 const initialState = {
-  isFrist: true,
+  isFirst: true,
   refData: null
 }
 
@@ -19,7 +19,7 @@ const audioReducer = (state:any,action:any) => {
     case '두번이상': //두번째 소리가 들어오면 앞에소리 꺼진다.
       return {
         ...state,
-        isFrist: false,
+        isFirst: action.data,
         refData: action.payload,
       };
     case '선택후문소리': //둘중 하나 선택하면 선택한것 켜지고 문소리 들린다.
@@ -29,6 +29,7 @@ const audioReducer = (state:any,action:any) => {
 
 const AudioContainer = (props: any) => {
   const [isPlay, setIsPlay] = useState(false);
+  const [isCurrent, setIsCurrent] = useState<any>();
   const bgmRef = useRef<any>(null);
   const onClickBgmBtn = () => { 
     //배경음악 컨트롤
@@ -41,7 +42,22 @@ const AudioContainer = (props: any) => {
 
   const onOffSound = () => {
     console.log(audioData);
-    audioData.refData?.current.play();
+    setIsCurrent(audioData.refData);
+    console.log(isCurrent);
+    
+    
+    if(audioData.isFirst) {
+      console.log('참');
+      audioData.refData?.current.play();
+      console.log(isCurrent);
+      
+    } else {
+      console.log('거짓');
+      isCurrent?.current.pause();
+      setTimeout(() => {
+        audioData.refData?.current.play();
+      },0)
+    }
     //만약 처음 이미 노래가 들어와 있다면 멈춘다음 새로운 노래로 변경. 첫번째 호출과 두번째호출을 비교해야함
   }
   useEffect(() => {

@@ -37,7 +37,7 @@ const Double = () => {
         <div>
           <p
             onClick={() => {
-              dispatch({ type: '두번실행', payload: hotelRef });
+              dispatch({ type: '두번이상', payload: hotelRef, data: false });
             }}
           >
             누르면 호텔정원 소리
@@ -46,7 +46,7 @@ const Double = () => {
 
           <p
             onClick={() => {
-              dispatch({ type: '두번실행', payload: swimRef });
+              dispatch({ type: '두번이상', payload: swimRef, data: false });
             }}
           >
             누르면 수영장 소리
