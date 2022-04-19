@@ -8,7 +8,7 @@ import AudioLayout from '../components/Layout';
 
 const Next = () => {
   const { viewSound} = useContext(Context);
-  const [selectRef, setSelectRef] = useState<any>() //현재 실행되는 노래를 담고있는 상태
+  const [selectRef, setSelectRef] = useState<any>() //현재 실행되는 오디오ref를 담고있는 상태
   const childRef = useRef(null);
   const childRef2 = useRef(null);
   return (

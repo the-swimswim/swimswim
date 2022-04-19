@@ -1,21 +1,29 @@
 import { useContext, useState } from 'react';
 import { useRef } from 'react';
-import { Context } from '../components/audio/AudioController';
+import { ACTIONS_TYPE, Context } from '../components/audio/AudioController';
 import AudioLayout from '../components/Layout';
-
 const Double = () => {
   const hotelRef = useRef(null);
   const swimRef = useRef(null);
-  const [isFrist, setisFrist] = useState<any>(true);
+  const [isFrist, setisFrist] = useState<boolean>(true); // 이미 클릭했는지 체크하는 상태
   const { dispatch } = useContext(Context);
+
+
+  const firstClick = (ref:any) => {
+    dispatch({ type: ACTIONS_TYPE.firstCase, payload: ref });
+    setisFrist(false);
+  }
+
+  const secondClick = (ref:any) => {
+    dispatch({ type: ACTIONS_TYPE.moreTwiceCase, payload: ref, data: false });
+  }
+
   return (
     <AudioLayout>
-      {isFrist && (
         <div>
           <p
             onClick={() => {
-              dispatch({ type: '한번실행', payload: hotelRef });
-              setisFrist(false);
+              isFrist ? firstClick(hotelRef) : secondClick(hotelRef);
             }}
           >
             누르면 호텔정원 소리
@@ -24,36 +32,13 @@ const Double = () => {
 
           <p
             onClick={() => {
-              dispatch({ type: '한번실행', payload: swimRef });
-              setisFrist(false);
+              isFrist ? firstClick(swimRef) : secondClick(swimRef);
             }}
           >
             누르면 수영장 소리
             <audio src="bgm/수영장1.mp3" ref={swimRef}></audio>
           </p>
         </div>
-      )}
-      {!isFrist && (
-        <div>
-          <p
-            onClick={() => {
-              dispatch({ type: '두번이상', payload: hotelRef, data: false });
-            }}
-          >
-            누르면 호텔정원 소리
-            <audio src="bgm/호텔정원소리.mp4" ref={hotelRef}></audio>
-          </p>
-
-          <p
-            onClick={() => {
-              dispatch({ type: '두번이상', payload: swimRef, data: false });
-            }}
-          >
-            누르면 수영장 소리
-            <audio src="bgm/수영장1.mp3" ref={swimRef}></audio>
-          </p>
-        </div>
-      )}
     </AudioLayout>
   );
 }
