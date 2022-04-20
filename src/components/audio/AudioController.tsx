@@ -33,7 +33,7 @@ interface IAudio {
 
 const initialState: IState = {
   isFirst: true,
-  refData: null,
+  refData: null
 };
 
 export const ACTIONS_TYPE: IActionType = {
@@ -56,7 +56,7 @@ const audioReducer = (state: IState, action: IAction) => {
         refData: action.payload,
       };
     case ACTIONS_TYPE.selectCase: //둘중 하나 선택하면 선택한것 켜지고 문소리 들린다.
-      return action.payload; //TODO 0419
+      return action.payload;
   }
 };
 
