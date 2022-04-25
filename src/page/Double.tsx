@@ -8,19 +8,19 @@ const Double = () => {
   const swimRef = useRef(null);
   const [isFrist, setisFrist] = useState<boolean>(true); // 이미 클릭했는지 체크하는 상태
   const [selectAudio,setSelectAudio] = useState<any>();
-  const { dispatch } = useContext(Context);
+  const {dispatch} = useContext(Context);
   const [isShow,setIsShow] = useState<boolean>(false);
   const firstClick = (ref:any) => {
-    dispatch({ type: ACTIONS_TYPE.firstCase, payload: ref });
+    dispatch({ type: ACTIONS_TYPE.firstCase, payload: ref});
     setisFrist(false);
   }
 
   const secondClick = (ref:any) => {
-    dispatch({ type: ACTIONS_TYPE.moreTwiceCase, payload: ref, data: false });
+    dispatch({ type: ACTIONS_TYPE.moreTwiceCase, payload: ref, data: false});
   }
   
   const selectComplete = (ref:any) => {
-    dispatch({type: ACTIONS_TYPE.selectCase, payload: ref})
+    dispatch({type: ACTIONS_TYPE.selectCase, payload: ref, select: true})
   }
 
   useEffect(() => {
@@ -49,18 +49,24 @@ const Double = () => {
             <audio src="bgm/수영장1.mp3" ref={swimRef}></audio>
           </p>
         </div>
-        <div onClick={() => setIsShow(true)}>
+        <div onClick={() => {
+          setIsShow(true);
+          selectAudio === undefined ? null : selectAudio.current.pause();
+        }}>
           선택 이벤트
         </div>
         {isShow && (
           <div style={{display: 'flex', justifyContent:'center',alignItems:'center'}}>
             <div onClick={() => {
-              setSelectAudio(hotelRef)
-              selectComplete(selectAudio)}
-            }  style={{marginRight:'20px'}}>호텔정원</div>
+              selectComplete(hotelRef);
+              setIsShow(false);
+            }
+            }  style={{marginRight:'20px'}}>
+              호텔정원</div>
             <div onClick={() =>  {
-              setSelectAudio(swimRef);
-              selectComplete(selectAudio)}
+              selectComplete(swimRef);
+              setIsShow(false);
+            }
               }>수영장</div>
           </div>
         )}
