@@ -47,7 +47,7 @@ const AudioContainer = (props: any) => {
   return (
     <Context.Provider value={{ isPlay, onClickBgmBtn, viewSound}}>
       {props.children}
-      <audio src="bgm/배경음악.mp3" loop ref={bgmRef}></audio>
+      <audio src="/bgm/배경음악.mp3" loop ref={bgmRef}></audio>
     </Context.Provider>
   );
 };

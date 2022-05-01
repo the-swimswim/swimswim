@@ -3,7 +3,8 @@ import ReactVideo from 'react-player';
 interface NormalVideoProp {
     url: { src: string, type: string }[],
     playing: boolean,
-    onEnded: () => void,
+    muted?: boolean,
+    onEnded?: () => void,
 }
 
 /**
@@ -13,12 +14,13 @@ interface NormalVideoProp {
  * @param onEnded Function 영상이 끝나면 실행되는 콜백
  * @returns React.FunctionComponent
  */
-const NormalVideo:React.FunctionComponent<NormalVideoProp> = ({ url, playing, onEnded }) => {
+const NormalVideo:React.FunctionComponent<NormalVideoProp> = ({ url, playing, muted = false, onEnded }) => {
     return (
         <ReactVideo
-            style={{ display: playing ? "block" : "none" }}
+            // style={{ position: "fixed", display: playing ? "block" : "none" }}
+            style={{ position: "fixed", zIndex: playing ? 0 : -10 }}
             playing={playing}
-            muted
+            muted={muted}
             width="100%"
             height="100%"
             url={url}

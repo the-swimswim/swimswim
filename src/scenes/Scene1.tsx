@@ -1,32 +1,34 @@
-import useStore from "../hooks/useStore";
-import shallow from 'zustand/shallow'
-import { useEffect } from "react";
+import React, { useState, useEffect, useMemo } from 'react';
+import useScene, { Block } from '../hooks/useScene';
 
-function Scene1() {
-  const { temp1, temp2, updateStore } = useStore(state => ({ 
-    temp1: state.temp1, 
-    temp2: state.temp2,
-    updateStore: state.updateStore,
-  }), shallow);
+enum BlockId {
+    Video1 = 0,
+    Selection,
+    Video2,
+    NextScene,
+}
 
-  useEffect(() => {
-    setTimeout(() => {
-      updateStore('temp1', true);
-    }, 1000);
+interface SceneProps {
+    onNextScene?: Function;
+}
 
-    setTimeout(() => {
-      updateStore('temp2', true);
-    }, 2000);
+const sequence: Block[] = [
+    { type: "video", id: BlockId.Video1, src: "일반 영상.webm" },
+    { type: "loop", id: BlockId.Selection, src: "반복 영상.webm" },
+    { type: "selection", id: BlockId.Selection },
+    { type: "video", id: BlockId.Video2, src: "일반 영상.webm" },
+    { type: "nextScene", id: BlockId.NextScene },
+];
 
-  }, [updateStore]);
+const Scene1:React.FunctionComponent<SceneProps> = (prop: SceneProps) => {
+    const { onNextScene } = prop;
+    const { elements } = useScene('scene2', sequence, onNextScene);
 
-  return (
-    <>
-      <p>temp1: {temp1 ? 'true' : 'false'}</p>
-      <p>temp2: {temp2 ? 'true' : 'false'}</p>
-      <div className={`scene1__temp1 ${temp1 && !temp2 ? 'scene1__temp1--before' : ''} ${temp2 ? 'scene1__temp1--after' : ''}`} />
-    </>
-  );
+    return (
+        <>
+            {elements}
+        </>
+    );
 }
 
 export default Scene1;

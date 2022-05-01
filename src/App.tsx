@@ -7,6 +7,7 @@ import TestContainerPage from './pages/TestContainerPage';
 
 import './App.css'
 import "./style.css";
+import HomePage from './pages/HomePage';
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
             <Route path="/next" element={<Next />}></Route>
             <Route path="test">
               <Route path="" element={<TestPage />} />
+              <Route path="home" element={<HomePage />} />
               <Route path=":id" element={<TestContainerPage />} />
             </Route>
           </Routes>

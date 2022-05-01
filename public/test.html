@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            html, body {
+                padding: 0;
+                margin: 0;
+            }
+
+            .video {
+                width: 100vw;
+                position: fixed;
+                /* mix-blend-mode: multiply; */
+                z-index: 0;
+            }
+
+            .video2 {
+                width: 100vw;
+                position: fixed;
+                mix-blend-mode: saturation;
+                z-index: 0;
+            }
+
+            .image {
+                width: 100vw;
+                position: fixed;
+                opacity: 1;
+                background-blend-mode: screen;
+                background-size: cover;
+                background-image: url(intro1.png);
+                z-index: 10;
+                height: 500px;
+            }
+
+            .image2 {
+                width: 100vw;
+                position: fixed;
+                opacity: 1;
+                mix-blend-mode: saturation;
+                background-image: url(test23.png);
+                z-index: 5;
+                height: 500px;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- <div class="image"></div> -->
+        <!-- <div class="image2"></div> -->
+        <!-- <img class="image" src="particle.png" />
+        <img class="image2" src="intro1.png" /> -->
+        <video class="video" autoplay muted>
+            <source src="일반 영상.webm" />
+        </video>
+        <video class="video2" autoplay muted>
+            <source src="반복 영상.webm" />
+        </video>
+    </body>
+</html>

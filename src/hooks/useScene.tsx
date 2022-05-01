@@ -16,6 +16,8 @@ interface Block {
   top?: string;
   width?: string;
   height?: string;
+  onEnded?: () => void;
+  muted?: boolean;
 }
 
 interface SceneElement {
@@ -42,14 +44,18 @@ function useScene(key: string, sequence: Block[], onNextScene?: Function): Scene
             src={block.src || ''}
             playing={current === block.id}
           />
-        )
+        );
       } else if (block.type === "video") {
+        const goto = block.goto ?? null;
+        const muted = block.muted !== undefined ? block.muted : false;
+
         return (
           <NormalVideo
             key={`${key}-${i}`}
-            url={[{ src: block.src || "", type: "video/webm" }]}
+            url={[{ src: block.src || "", type: "video/mp4" }]}
+            muted={muted}
             playing={current === block.id}
-            onEnded={handleNext}
+            onEnded={goto ? () => handleMove(goto) : undefined}
           />
         );
       } else if (block.type === "loop") {
@@ -61,18 +67,20 @@ function useScene(key: string, sequence: Block[], onNextScene?: Function): Scene
           />
         );
       } else if (block.type === "selection") {
+        const goto = block.goto ?? block.id + 1;
+
         return (
           <Selection
             key={`${key}-${i}`}
-            src={block.src || ""}
+            src={block.src}
             left={block.left}
             top={block.top}
+            width={block.width}
+            height={block.height}
             playing={current === block.id}
-            onEnded={handleNext}
-            // FIX ME
-            onSelect={() => { handleMove(block.goto || 0) }}
+            onSelect={() => handleMove(goto)}
           />
-        )
+        );
       } else if (block.type === "nextScene") {
         return (
           <NextScene
@@ -80,7 +88,7 @@ function useScene(key: string, sequence: Block[], onNextScene?: Function): Scene
             playing={current === block.id}
             onNextScene={onNextScene}
           />
-        )
+        );
       }
 
       return null;

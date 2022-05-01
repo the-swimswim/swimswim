@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { Scene1, Scene2, Scene3, SceneNotFound } from '../scenes';
+import { IntroScene, Scene1, Scene2, Scene3, SceneNotFound } from '../scenes';
 import { ReactElement, useEffect } from 'react';
 import useStore from './../hooks/useStore';
 
@@ -9,6 +9,7 @@ interface SceneInfo {
 }
 
 const scene:SceneInfo = {
+  "intro": IntroScene,
   1: Scene1,
   2: Scene2,
   3: Scene3,
@@ -35,7 +36,9 @@ function TestContainerPage() {
 
   return (
     <>
-      <Link to="/test">Back</Link>
+      <button style={{ position: "fixed", right: "50px", bottom: "50px" }}>
+        <Link to="/test">Back</Link>
+      </button>
       {getScene(id)({})}
     </>
   )

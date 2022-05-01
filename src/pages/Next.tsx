@@ -25,7 +25,7 @@ const Next = () => {
           src="imgs/05_계곡커튼.png"
           style={{ width: '50px', height: '50px' }}
         />
-        <audio src="bgm/산뷰소리.mp3" ref={childRef}></audio>
+        <audio src="/bgm/산뷰소리.mp3" ref={childRef}></audio>
       </p>
       <p
         onClick={() => {
@@ -38,7 +38,7 @@ const Next = () => {
           src="imgs/05_커튼_산.png"
           style={{ width: '50px', height: '50px' }}
         />
-        <audio src="bgm/계곡소리2(은은함).mp3" ref={childRef2}></audio>
+        <audio src="/bgm/계곡소리2(은은함).mp3" ref={childRef2}></audio>
       </p>
       <div onClick={() => {
         viewSound(selectRef, 'Stop'); //현재 실행되는 음악을 끈다.
