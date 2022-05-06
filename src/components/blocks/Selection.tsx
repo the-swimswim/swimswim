@@ -1,8 +1,8 @@
-import ReactVideo from 'react-player';
+import useController from '../../hooks/useController';
 
 interface SelectionProp {
-  playing: boolean;
-  onSelect: () => void;
+  blockId: string;
+  active?: { [key: string]: boolean };
   left?: string;
   top?: string;
   width?: string;
@@ -16,15 +16,20 @@ interface SelectionProp {
  * @param onSelect Function 버튼이 클릭되었을 때 실행하는 내용
  * @returns React.FunctionComponent
  */
-const Selection: React.FunctionComponent<SelectionProp> = ({
-  playing,
-  onSelect,
+const Selection: React.FC<SelectionProp> = ({
+  blockId,
+  active,
   left,
   top,
   width = 'auto',
   height = 'auto',
   src,
 }) => {
+  const playing = useController((state) => state.blocks[blockId]) || false;
+  const update = useController((state) => state.update);
+
+  console.log(blockId, playing)
+
   return (
     <>
       {src !== undefined ? (
@@ -38,8 +43,9 @@ const Selection: React.FunctionComponent<SelectionProp> = ({
             transform: 'translate(-50%, -50%)',
             width,
             height,
+            zIndex: 100,
           }}
-          onClick={onSelect}
+          onClick={active ? () => update(active) : undefined}
         />
       ) : (
         <button
@@ -53,8 +59,9 @@ const Selection: React.FunctionComponent<SelectionProp> = ({
             height,
             background: 'transparent',
             border: 'none',
+            zIndex: 100,
           }}
-          onClick={onSelect}
+          onClick={active ? () => update(active) : undefined}
         />
       )}
     </>

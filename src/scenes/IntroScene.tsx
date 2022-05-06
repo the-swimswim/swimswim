@@ -1,59 +1,147 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React from 'react';
 import useScene, { Block } from '../hooks/useScene';
 import getScreenRatio from '../utils/getScreenRatio';
 
 const ratio = getScreenRatio();
 
-console.log(ratio)
+console.log(ratio);
 
-enum BlockId {
-    Start1 = 0,
-    Start2,
-    Lobby1,
-    Lobby2,
-    Left,
-    Right,
-    NextScene,
-}
+const blocks: Block[] = [
+  // 두루마리 올라옴
+  {
+    type: 'video',
+    id: 'group_1/bg_1',
+    src: '/intro_bg_1.mp4',
+    muted: true,
+    active: {
+      'intro/group_1': false,
+      'intro/group_2': true,
+    },
+  },
 
-interface SceneProps {
-    onNextScene?: Function;
-}
+  // 씰 클릭
+  {
+    type: 'image',
+    id: 'group_2/bg_2',
+    src: '/intro_bg_2.png',
+  },
+  {
+    type: 'selection',
+    id: 'group_2/selection_1',
+    src: '/intro_sealing.png',
+    active: {
+      'intro/group_2': false,
+      'intro/group_3': true,
+      'intro/group_4': true,
+    },
+    width: `${196 * ratio}px`,
+    height: `${188 * ratio}px`,
+  },
 
-const sequence: Block[] = [
-    { type: "video", id: BlockId.Start1, src: "/intro_bg_1.mp4", muted: true, goto: BlockId.Start2 },
+  // 씰 내려감 => 두루마리 펼쳐짐
+  {
+    type: 'video',
+    id: 'group_3/bg_3',
+    src: '/intro_bg_3.mp4',
+  },
 
-    { type: "image", id: BlockId.Start2, src: "/intro_bg_2.png" },
-    { type: "selection", id: BlockId.Start2, src: "/intro_sealing.png", goto: BlockId.Lobby1, width: `${196 * ratio}px`, height: `${188 * ratio}px` },
+  // 좌우 화살표, 시작하기 버튼
+  {
+    type: 'selection',
+    id: 'group_4/selection_2',
+    src: '/intro_button_arrow.png',
+    active: {
+      'intro/group_3': false,
+      'intro/group_4': false,
+      'intro/group_5': false,
+      'intro/group_6': true,
+    },
+    left: `${100 * ratio}px`,
+    top: '50%',
+    width: `${97 * ratio}px`,
+    height: `${135 * ratio}px`,
+  },
+  {
+    type: 'selection',
+    id: 'group_4/selection_3',
+    src: '/intro_button_arrow.png',
+    active: {
+      'intro/group_3': false,
+      'intro/group_4': false,
+      'intro/group_5': false,
+      'intro/group_7': true,
+    },
+    left: `calc(100% - ${100 * ratio}px)`,
+    top: '50%',
+    width: `${97 * ratio}px`,
+    height: `${135 * ratio}px`,
+  },
+  {
+    type: 'selection',
+    id: 'group_4/selection_4',
+    src: '/intro_button_enter.png',
+    active: {
+      'intro': false,
+      'scene1/group_1': true,
+    },
+    left: '50%',
+    top: `calc(100% - ${100 * ratio}px)`,
+    width: `${649 * ratio}px`,
+    height: `${148 * ratio}px`,
+  },
 
-    { type: "video", id: BlockId.Lobby1, src: "/intro_bg_3.mp4" },
-    { type: "selection", id: BlockId.Lobby1, src: "/intro_button_arrow.png", goto: BlockId.Left, left: `${100 * ratio}px`, top: "50%", width: `${97 * ratio}px`, height: `${135 * ratio}px` },
-    { type: "selection", id: BlockId.Lobby1, src: "/intro_button_arrow.png", goto: BlockId.Right, left: `calc(100% - ${100 * ratio}px)`, top: "50%", width: `${97 * ratio}px`, height: `${135 * ratio}px` },
-    { type: "selection", id: BlockId.Lobby1, src: "/intro_button_enter.png", goto: BlockId.NextScene, left: "50%", top: `calc(100% - ${100 * ratio}px)`, width: `${649 * ratio}px`, height: `${148 * ratio}px` },
+  // 화살표 클릭 후 돌아왔을 때
+  { 
+    type: 'video', 
+    id: 'group_5/bg_4', 
+    src: '/intro_bg_4.mp4' 
+  },
 
-    { type: "video", id: BlockId.Lobby2, src: "/intro_bg_4.mp4" },
-    { type: "selection", id: BlockId.Lobby2, src: "/intro_button_arrow.png", goto: BlockId.Left, left: `${100 * ratio}px`, top: "50%", width: `${97 * ratio}px`, height: `${135 * ratio}px` },
-    { type: "selection", id: BlockId.Lobby2, src: "/intro_button_arrow.png", goto: BlockId.Right, left: `calc(100% - ${100 * ratio}px)`, top: "50%", width: `${97 * ratio}px`, height: `${135 * ratio}px` },
-    { type: "selection", id: BlockId.Lobby2, src: "/intro_button_enter.png", goto: BlockId.NextScene, left: "50%", top: `calc(100% - ${100 * ratio}px)`, width: `${649 * ratio}px`, height: `${148 * ratio}px` },
+  // 왼쪽 스크롤
+  { 
+    type: 'video', 
+    id: 'group_6/bg_5', 
+    src: '/intro_bg_5.mp4' 
+  },
+  {
+    type: 'selection',
+    id: 'group_6/selection_8',
+    active: {
+      'intro/group_4': true,
+      'intro/group_5': true,
+      'intro/group_6': false,
+    },
+    left: `${200 * ratio}px`,
+    top: '50%',
+    width: `${200 * ratio}px`,
+    height: `${200 * ratio}px`,
+  },
 
-    { type: "video", id: BlockId.Left, src: "/intro_bg_5.mp4" },
-    { type: "selection", id: BlockId.Left, goto: BlockId.Lobby2, left: `${200 * ratio}px`, top: "50%", width: `${200 * ratio}px`, height: `${200 * ratio}px` },
-
-    { type: "video", id: BlockId.Right, src: "/intro_bg_6.mp4" },
-    { type: "selection", id: BlockId.Right, goto: BlockId.Lobby2, left: `calc(100% - ${200 * ratio}px)`, top: "50%", width: `${200 * ratio}px`, height: `${200 * ratio}px` },
-
-    { type: "nextScene", id: BlockId.NextScene },
+  // 오른쪽 스크롤
+  { 
+    type: 'video', 
+    id: 'group_7/bg_6', 
+    src: '/intro_bg_6.mp4' 
+  },
+  {
+    type: 'selection',
+    id: 'group_7/selection_9',
+    active: {
+      'intro/group_4': true,
+      'intro/group_5': true,
+      'intro/group_7': false,
+    },
+    left: `calc(100% - ${200 * ratio}px)`,
+    top: '50%',
+    width: `${200 * ratio}px`,
+    height: `${200 * ratio}px`,
+  },
 ];
 
-const IntroScene:React.FunctionComponent<SceneProps> = (prop: SceneProps) => {
-    const { onNextScene } = prop;
-    const { elements } = useScene('intro', sequence, onNextScene);
+const IntroScene: React.FC = () => {
+  const { elements } = useScene('intro', blocks);
 
-    return (
-        <>
-            {elements}
-        </>
-    );
-}
+  return <>{elements}</>;
+};
 
 export default IntroScene;

@@ -1,25 +1,29 @@
 import { useEffect, useRef } from 'react';
+import useController from '../../hooks/useController';
 
 interface NormalVideoProp {
   url: { src: string; type: string }[];
-  playing: boolean;
+  blockId: string;
   muted?: boolean;
-  onEnded?: () => void;
+  active?: { [key: string]: boolean };
 }
 
 /**
  * 일회성으로 실행되는 영상
  * @param url { src: string, type: string }[] 영상 URL.
- * @param playing boolean 실행중인가
- * @param onEnded Function 영상이 끝나면 실행되는 콜백
+ * @param blockId string 블록 구분자
+ * @param muted boolean 음소거인가
+ * @param active object 영상 종료후 상태 변경
  * @returns React.FunctionComponent
  */
-const NormalVideo: React.FunctionComponent<NormalVideoProp> = ({
+const NormalVideo: React.FC<NormalVideoProp> = ({
   url,
-  playing,
+  blockId,
   muted = false,
-  onEnded,
+  active,
 }) => {
+  const playing = useController((state) => state.blocks[blockId]) || false;
+  const update = useController((state) => state.update);
   const ref = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -39,7 +43,7 @@ const NormalVideo: React.FunctionComponent<NormalVideoProp> = ({
     <video
       style={{ display: playing ? 'block' : 'none', width: '100%', height: '100%' }}
       muted={muted}
-      onEnded={onEnded}
+      onEnded={active ? () => update(active) : undefined}
       autoPlay
       ref={ref}
     >

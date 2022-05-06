@@ -1,18 +1,21 @@
 import { useRef, useEffect } from 'react';
+import useController from '../../hooks/useController';
 
 interface LoopVideoProp {
+  blockId: string;
   url: { src: string; type: string }[];
   muted?: boolean;
-  playing: boolean;
 }
 
 /**
  * 반복되는 영상을 위한 블록
+ * @param blockId string 블록 구분자
  * @param url { src: string, type: string }[] 영상 URL.
- * @param playing boolean 실행중인가
+ * @param muted boolean 실행중인가
  * @returns React.FunctionComponent
  */
-const LoopVideo: React.FunctionComponent<LoopVideoProp> = ({ url, muted = false, playing }) => {
+const LoopVideo: React.FC<LoopVideoProp> = ({ blockId, url, muted = false }) => {
+  const playing = useController((state) => state.blocks[blockId]) || false;
   const ref = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
