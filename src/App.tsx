@@ -12,9 +12,10 @@ import Main from './pages/Main';
 function App() {
   return (
     <>
-            <Route path="/" element={<Home />}></Route>
       <AudioContainer>
         <Routes>
+          <Route path="/" element={<Main />}></Route>
+          <Route path="/home" element={<Home />}></Route>
           <Route path="/next" element={<Next />}></Route>
           <Route path="test">
             <Route path="" element={<TestPage />} />
