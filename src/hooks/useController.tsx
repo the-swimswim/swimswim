@@ -31,8 +31,6 @@ const useController = create<Controller>(set => ({
       }
     }
 
-    console.log(newState)
-
     return newState;
   }),
   reset: () => set(state => ({ 

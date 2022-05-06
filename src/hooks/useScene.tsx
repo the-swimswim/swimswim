@@ -36,8 +36,6 @@ function useScene(sceneId: string, blocks: Block[]): SceneElement {
       newState[blockId] = false;
     });
 
-    console.log(newState)
-
     update(newState);
   }, []);
 

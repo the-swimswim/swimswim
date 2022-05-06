@@ -1,4 +1,3 @@
-import shallow from 'zustand/shallow';
 import useController from '../../hooks/useController';
 
 interface ImageProp {
@@ -17,8 +16,6 @@ interface ImageProp {
  */
 const Image: React.FC<ImageProp> = ({ blockId, src, width, height }) => {
   const playing = useController((state) => state.blocks[blockId]) || false;
-
-  console.log(blockId, playing)
 
   return (
     <img

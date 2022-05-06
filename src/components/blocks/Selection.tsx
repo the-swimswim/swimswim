@@ -28,8 +28,6 @@ const Selection: React.FC<SelectionProp> = ({
   const playing = useController((state) => state.blocks[blockId]) || false;
   const update = useController((state) => state.update);
 
-  console.log(blockId, playing)
-
   return (
     <>
       {src !== undefined ? (

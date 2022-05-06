@@ -4,8 +4,6 @@ import getScreenRatio from '../utils/getScreenRatio';
 
 const ratio = getScreenRatio();
 
-console.log(ratio);
-
 const blocks: Block[] = [
   // 두루마리 올라옴
   {
