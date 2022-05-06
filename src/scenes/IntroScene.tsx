@@ -54,6 +54,7 @@ const blocks: Block[] = [
       'intro/group_5': false,
       'intro/group_6': true,
     },
+    transform: "rotate(180deg)",
     left: `${100 * ratio}px`,
     top: '50%',
     width: `${97 * ratio}px`,

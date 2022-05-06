@@ -8,6 +8,7 @@ interface SelectionProp {
   width?: string;
   height?: string;
   src?: string;
+  transform?: string;
 }
 
 /**
@@ -24,6 +25,7 @@ const Selection: React.FC<SelectionProp> = ({
   width = 'auto',
   height = 'auto',
   src,
+  transform,
 }) => {
   const playing = useController((state) => state.blocks[blockId]) || false;
   const update = useController((state) => state.update);
@@ -38,7 +40,7 @@ const Selection: React.FC<SelectionProp> = ({
             position: 'absolute',
             left: left || '50%',
             top: top || '50%',
-            transform: 'translate(-50%, -50%)',
+            transform: `translate(-50%, -50%) ${transform || ''}`,
             width,
             height,
             zIndex: 100,
@@ -52,7 +54,7 @@ const Selection: React.FC<SelectionProp> = ({
             position: 'absolute',
             left: left || '50%',
             top: top || '50%',
-            transform: 'translate(-50%, -50%)',
+            transform: `translate(-50%, -50%) ${transform || ''}`,
             width,
             height,
             background: 'transparent',

@@ -5,6 +5,7 @@ interface ImageProp {
   src: string;
   width?: string;
   height?: string;
+  transform?: string;
 }
 
 /**
@@ -14,7 +15,7 @@ interface ImageProp {
  * @param playing boolean 실행중인가
  * @returns React.FunctionComponent
  */
-const Image: React.FC<ImageProp> = ({ blockId, src, width, height }) => {
+const Image: React.FC<ImageProp> = ({ blockId, src, width, height, transform }) => {
   const playing = useController((state) => state.blocks[blockId]) || false;
 
   return (
@@ -24,6 +25,7 @@ const Image: React.FC<ImageProp> = ({ blockId, src, width, height }) => {
         display: playing ? 'block' : 'none',
         width: width || '100%',
         height: height || '100%',
+        transform: transform || '',
       }}
     />
   );

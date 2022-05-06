@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useMemo, CSSProperties } from "react";
 import NormalVideo from '../components/blocks/NormalVideo';
 import LoopVideo from '../components/blocks/LoopVideo';
 import Selection from '../components/blocks/Selection';
@@ -17,6 +17,7 @@ interface Block {
   height?: string;
   onEnded?: () => void;
   active?: { [key: string]: boolean };
+  transform?: string;
   muted?: boolean;
 }
 
@@ -50,6 +51,7 @@ function useScene(sceneId: string, blocks: Block[]): SceneElement {
             blockId={blockId}
             key={`${sceneId}-${i}`}
             src={block.src || ''}
+            transform={block.transform}
           />
         );
       } else if (block.type === "video") {
@@ -86,6 +88,7 @@ function useScene(sceneId: string, blocks: Block[]): SceneElement {
             width={block.width}
             height={block.height}
             active={active}
+            transform={block.transform}
           />
         );
       }
