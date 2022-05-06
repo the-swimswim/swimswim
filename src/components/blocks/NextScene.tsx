@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 
 interface NextSceneProp {
-    playing: boolean,
-    onNextScene: Function | undefined,
+  playing: boolean;
+  onNextScene: Function | undefined;
 }
 
 /**
@@ -11,14 +11,14 @@ interface NextSceneProp {
  * @param onNextScene Function | undefined 다음 씬으로 넘어가는 콜백
  * @returns React.FunctionComponent
  */
-const NextScene:React.FunctionComponent<NextSceneProp> = ({ playing, onNextScene }) => {
-    useEffect(() => {
-        if (playing) {
-            onNextScene && onNextScene();
-        }
-    }, [playing]);
+const NextScene: React.FunctionComponent<NextSceneProp> = ({ playing, onNextScene }) => {
+  useEffect(() => {
+    if (playing) {
+      onNextScene && onNextScene();
+    }
+  }, [playing]);
 
-    return null;
-}
+  return null;
+};
 
 export default NextScene;
